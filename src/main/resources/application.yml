@@ -1,0 +1,83 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: register-server
+
+server:
+  port: 80
+
+hystrix:
+  threadpool: # hystrix线程池
+    default:
+      execution:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 1000
+          thread:
+            timeoutInMilliseconds: 30000
+          strategy: THREAD
+        timeout:
+          enabled: true
+      maxQueueSize: 2000 # BlockingQueue的最大队列数
+      queueSizeRejectionThreshold: 1000 # 即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+      coreSize: 1500
+
+eureka:
+  server:
+    response-cache-update-interval-ms: 3000
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 3000
+  instance:
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+    hostname: localhost
+    ip-address: 127.0.0.1
+  client:
+    registryFetchIntervalSeconds: 5
+    #是否要注册到eureka
+    register-with-eureka: false
+    #表示是否从Eureka Server获取注册信息
+    fetch-registry: false
+    #单机配置
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+#客服端负载均衡
+ribbon:
+  ServerListRefreshInterval: 1000
+  #请求连接的超时时间
+  ConnectTimeout: 60000
+  #请求处理的超时时间
+  ReadTimeout: 180000
+
+# spring-boot-starter-acturator
+management:
+  port: 8010
+  security:
+    enabled: false
+  endpoint:
+    web:
+      exposure: '*'
+  info:
+    env:
+      enabled: true
+
+
+#log:
+#  output:
+#    kafka:
+#      #是否开启kafka日志推送
+#      enabled: ${LOG_OUTPUT_KAFKA_ENABLED:false}
+#      #当前环境dev、uat、prod
+#      env: ${LOG_OUTPUT_KAFKA_ENV:dev}
+#      #日志推送的kafka的topic
+#      topic: ${LOG_OUTPUT_KAFKA_TOPIC:els804144243975131136}
+#      #kafka的地址。
+#      bootstrap: ${LOG_OUTPUT_KAFKA_BOOTSTRAP:kafka-ece-prod.crcloud.com:9092}
+#      #kafka的用户名
+#      username: ${LOG_OUTPUT_KAFKA_USERNAME:write}
+#      #kafka的密码
+#      password: ${LOG_OUTPUT_KAFKA_PASSWORD:ELS-prod-write}
+
