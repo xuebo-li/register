@@ -65,19 +65,5 @@ management:
       enabled: true
 
 
-#log:
-#  output:
-#    kafka:
-#      #是否开启kafka日志推送
-#      enabled: ${LOG_OUTPUT_KAFKA_ENABLED:false}
-#      #当前环境dev、uat、prod
-#      env: ${LOG_OUTPUT_KAFKA_ENV:dev}
-#      #日志推送的kafka的topic
-#      topic: ${LOG_OUTPUT_KAFKA_TOPIC:els804144243975131136}
-#      #kafka的地址。
-#      bootstrap: ${LOG_OUTPUT_KAFKA_BOOTSTRAP:kafka-ece-prod.crcloud.com:9092}
-#      #kafka的用户名
-#      username: ${LOG_OUTPUT_KAFKA_USERNAME:write}
-#      #kafka的密码
-#      password: ${LOG_OUTPUT_KAFKA_PASSWORD:ELS-prod-write}
+
 
